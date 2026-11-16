@@ -19,8 +19,9 @@ MAX_TRIES="${MAX_TRIES:-100}"     # give up after this many restarts
 WAIT="${WAIT:-60}"                # seconds between restarts
 
 cd "$(dirname "$0")/.." || exit 1
+# same environment choice as run_server.sh: the Python 3.12 one if it exists
 # shellcheck disable=SC1091
-[ -f venv/bin/activate ] && . venv/bin/activate
+if [ -f venv312/bin/activate ]; then . venv312/bin/activate; elif [ -f venv/bin/activate ]; then . venv/bin/activate; fi
 mkdir -p "$OUT"
 LOG="$OUT/resumable.log"
 
